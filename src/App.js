@@ -1,24 +1,27 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import Loading from "./pages/loading/Loading";
+import Login from "./pages/onboarding/components/Login";
+import ForgotPassword from "./pages/onboarding/components/ForgotPassword";
+import SignUp from "./pages/onboarding/components/SignUp";
+import SetPassword from "./pages/onboarding/components/SetPassword";
+import Dashboard from "./pages/dashboard/Dashboard";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route
+          path="/"
+          element={localStorage.getItem("token") ? <Dashboard /> : <Login />}
+        />
+        <Route path="/login" element={<Login />} />
+        <Route path="/forgotPassword" element={<ForgotPassword />} />
+        <Route path="/signup" element={<SignUp />} />
+        <Route path="/updatePassword" element={<SetPassword />} />
+        <Route path="/loading" element={<Loading />} />
+      </Routes>
+    </BrowserRouter>
   );
 }
 

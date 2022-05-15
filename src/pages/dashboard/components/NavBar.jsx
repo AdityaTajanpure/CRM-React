@@ -12,24 +12,49 @@ const NavBar = ({ currentIndex, setIndex }) => {
       </div>
       <div className="main-content">
         <div className="content-item" onClick={() => setIndex(0)}>
-          <i className="fas fa-bars fa-xl"></i>
-          <h3>Dashboard</h3>
+          <i
+            className="fas fa-bars fa-xl"
+            style={{ color: `${currentIndex === 0 ? "red" : "black"}` }}
+          ></i>
+          <h3 style={{ color: `${currentIndex === 0 ? "red" : "black"}` }}>
+            Dashboard
+          </h3>
         </div>
         <div className="content-item" onClick={() => setIndex(1)}>
-          <i className="fas fa-briefcase fa-xl"></i>
-          <h3>Service Requests </h3>
+          <i
+            className="fas fa-briefcase fa-xl"
+            style={{ color: `${currentIndex === 1 ? "red" : "black"}` }}
+          ></i>
+          <h3 style={{ color: `${currentIndex === 1 ? "red" : "black"}` }}>
+            Service Requests{" "}
+          </h3>
         </div>
         <div className="content-item" onClick={() => setIndex(2)}>
-          <i className="fab fa-intercom fa-xl"></i>
-          <h3>Leads Master</h3>
+          <i
+            className="fab fa-intercom fa-xl"
+            style={{ color: `${currentIndex === 2 ? "red" : "black"}` }}
+          ></i>
+          <h3 style={{ color: `${currentIndex === 2 ? "red" : "black"}` }}>
+            Leads Master
+          </h3>
         </div>
         <div className="content-item" onClick={() => setIndex(3)}>
-          <i className="fas fa-address-book fa-xl"></i>
-          <h3>Contacts Master</h3>
+          <i
+            className="fas fa-address-book fa-xl"
+            style={{ color: `${currentIndex === 3 ? "red" : "black"}` }}
+          ></i>
+          <h3 style={{ color: `${currentIndex === 3 ? "red" : "black"}` }}>
+            Contacts Master
+          </h3>
         </div>
         <div className="content-item" onClick={() => setIndex(4)}>
-          <i className="fas fa-sign-out-alt fa-xl"></i>
-          <h3>Log out</h3>
+          <i
+            className="fas fa-sign-out-alt fa-xl"
+            style={{ color: `${currentIndex === 4 ? "red" : "black"}` }}
+          ></i>
+          <h3 style={{ color: `${currentIndex === 4 ? "red" : "black"}` }}>
+            Log out
+          </h3>
         </div>
       </div>
     </nav>

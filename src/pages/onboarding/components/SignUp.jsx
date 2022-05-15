@@ -3,12 +3,14 @@ import "../login.css";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import UserRepo from "../../../api/connection";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
+  const navigate = useNavigate();
   const initialValues = {
     firstname: "",
     lastname: "",
-    email: "",
+    username: "",
     password: "",
   };
   const [formValues, setFormValues] = useState(initialValues);
@@ -26,6 +28,7 @@ const Login = () => {
     gotResponse(res);
     if (res.data.token) {
       localStorage.setItem("token", res.data.token);
+      navigate("/login");
     }
   };
 
@@ -44,10 +47,10 @@ const Login = () => {
     if (!values.firstname) {
       errors.firstname = "First name is required!";
     }
-    if (!values.email) {
-      errors.email = "Email is required!";
+    if (!values.username) {
+      errors.username = "Email is required!";
     } else if (!regex.test(values.email)) {
-      errors.email = "This is not a valid email format!";
+      errors.username = "This is not a valid email format!";
     }
     if (!values.password) {
       errors.password = "Password is required";
@@ -81,13 +84,13 @@ const Login = () => {
             <label>Email</label>
             <input
               type="text"
-              name="email"
+              name="username"
               placeholder="Email"
-              value={formValues.email}
+              value={formValues.username}
               onChange={handleChange}
             />
           </div>
-          <p>{formErrors.email}</p>
+          <p>{formErrors.username}</p>
           <div className="field">
             <label>Firstname</label>
             <input

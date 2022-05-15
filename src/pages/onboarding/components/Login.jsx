@@ -3,8 +3,10 @@ import "../login.css";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import UserRepo from "../../../api/connection";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
+  const navigate = useNavigate();
   const initialValues = {
     email: "",
     password: "",
@@ -19,7 +21,9 @@ const Login = () => {
     gotResponse(res);
     if (res.data.token) {
       localStorage.setItem("token", res.data.token);
-      localStorage.setItem("username", res.data.username);
+      localStorage.setItem("username", res.data.data.username);
+      navigate("/");
+      window.location.reload();
     }
   };
 
@@ -32,7 +36,7 @@ const Login = () => {
     e.preventDefault();
     setFormErrors(validate(formValues));
     setIsSubmit(true);
-    if (Object.keys(formErrors).length === 0 && isSubmit) {
+    if (Object.keys(formErrors).length === 0) {
       loginUser();
     }
   };

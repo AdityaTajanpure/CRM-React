@@ -27,11 +27,14 @@ const UserRepo = {
   },
 
   setPassword: async (token, username, password) => {
-    await axiosClient.post("http://localhost:3200/onboarding/setPassword", {
-      token,
-      username,
-      password,
-    });
+    return await axiosClient.post(
+      "http://localhost:3200/onboarding/setPassword",
+      {
+        token,
+        username,
+        password,
+      }
+    );
   },
 };
 

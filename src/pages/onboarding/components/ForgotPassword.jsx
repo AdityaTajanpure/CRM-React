@@ -17,7 +17,7 @@ const ForgotPassword = () => {
   };
 
   const forgotPassword = async () => {
-    let res = await UserRepo.loginUser(formValues.email, formValues.password);
+    let res = await UserRepo.forgotPassword(formValues.email);
     gotResponse(res);
   };
 
@@ -25,7 +25,7 @@ const ForgotPassword = () => {
     e.preventDefault();
     setFormErrors(validate(formValues));
     setIsSubmit(true);
-    if (Object.keys(formErrors).length === 0 && isSubmit) {
+    if (Object.keys(formErrors).length === 0) {
       forgotPassword();
     }
   };

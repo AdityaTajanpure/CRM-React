@@ -2,8 +2,10 @@ import React from "react";
 import "../login.css";
 import { useState } from "react";
 import UserRepo from "../../../api/connection";
+import { useNavigate } from "react-router-dom";
 
 const SetPassword = () => {
+  const navigate = useNavigate();
   const initialValues = {
     password: "",
     password2: "",
@@ -18,20 +20,29 @@ const SetPassword = () => {
     setFormValues({ ...formValues, [name]: value });
   };
 
-  const setPassword = async (token, username, password) => {
+  const setPassword = async (password) => {
+    const token = window.location.href.split("/").pop();
+    var base64Url = token.split(".")[1];
+    var base64 = base64Url.replace(/-/g, "+").replace(/_/g, "/");
+    var jsonPayload = decodeURIComponent(
+      atob(base64)
+        .split("")
+        .map(function (c) {
+          return "%" + ("00" + c.charCodeAt(0).toString(16)).slice(-2);
+        })
+        .join("")
+    );
+    const { username } = JSON.parse(jsonPayload);
     let res = await UserRepo.setPassword(token, username, password);
     gotResponse(res);
-    if (res.data.token) {
-      localStorage.setItem("token", res.data.token);
-    }
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
     setFormErrors(validate(formValues));
     setIsSubmit(true);
-    if (Object.keys(formErrors).length === 0 && isSubmit) {
-      setPassword();
+    if (Object.keys(formErrors).length === 0) {
+      setPassword(formValues.password);
     }
   };
 

@@ -18,7 +18,7 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/forgotPassword" element={<ForgotPassword />} />
         <Route path="/signup" element={<SignUp />} />
-        <Route path="/updatePassword" element={<SetPassword />} />
+        <Route path="/updatePassword/:token" element={<SetPassword />} />
         <Route path="/loading" element={<Loading />} />
       </Routes>
     </BrowserRouter>

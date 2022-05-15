@@ -6,7 +6,6 @@ import Leads from "./components/Leads";
 import Services from "./components/Services";
 import Contacts from "./components/Contacts";
 import Main from "./components/Main";
-import Login from "../onboarding/components/Login";
 import { useNavigate } from "react-router-dom";
 
 const Dashboard = () => {
@@ -34,7 +33,7 @@ const Dashboard = () => {
         localStorage.removeItem("username");
         navigate("/login");
         window.location.reload();
-        return <Login />;
+        return <></>;
       default:
         return <Main />;
     }

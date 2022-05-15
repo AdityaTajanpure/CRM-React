@@ -1,3 +1,5 @@
+⚠️ Remaining Modules -> API Integration for Dashboard, Adding some security checks, Forgot password flow only works until sending email latter part is pending and will be updated by today (May 15 22) ⚠️
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).

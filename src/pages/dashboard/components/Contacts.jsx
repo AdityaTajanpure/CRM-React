@@ -1,5 +1,5 @@
 import React from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
 import ListItemText from "@mui/material/ListItemText";
@@ -10,21 +10,13 @@ import DashboardRepo from "../../../api/dashboard_repo";
 const Contacts = () => {
   const initialValues = {
     title: "",
-    mobileNumber: null,
+    mobileNumber: "",
     description: "",
   };
   const [formValues, setFormValues] = useState(initialValues);
   const [formErrors, setFormErrors] = useState({});
-  const [isSubmit, setIsSubmit] = useState(false);
-  const [response, gotResponse] = useState({});
-
-  const getContacts = async () => {
-    let res = await await DashboardRepo.getContactRecords(
-      localStorage.getItem("username")
-    );
-
-    gotResponse(res);
-  };
+  const [leads, setLeads] = useState([]);
+  const [updateId, setUpdateId] = useState(null);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -34,8 +26,13 @@ const Contacts = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     setFormErrors(validate(formValues));
-
-    setIsSubmit(true);
+    if (Object.keys(formErrors).length === 0) {
+      if (updateId !== null) {
+        updateContactRecord(updateId);
+      } else {
+        addContactRecord();
+      }
+    }
   };
 
   const validate = (values) => {
@@ -53,6 +50,53 @@ const Contacts = () => {
     }
     return errors;
   };
+
+  const getAllContacts = async () => {
+    const username = localStorage.getItem("username");
+    const response = await DashboardRepo.getContactRecords(username);
+    console.log(response);
+    if (response.data) {
+      setLeads(response.data.data.reverse());
+      setFormValues(initialValues);
+    }
+  };
+
+  const addContactRecord = async () => {
+    const username = localStorage.getItem("username");
+    const response = await DashboardRepo.addContactRecord(
+      username,
+      formValues.title,
+      formValues.description,
+      formValues.mobileNumber
+    );
+    alert(response.data.msg);
+    getAllContacts();
+  };
+
+  const updateContactRecord = async (id) => {
+    const username = localStorage.getItem("username");
+    const response = await DashboardRepo.updateContactRecord(
+      id,
+      username,
+      formValues.title,
+      formValues.description,
+      formValues.mobileNumber
+    );
+    setUpdateId(null);
+    alert(response.data.msg);
+    getAllContacts();
+  };
+
+  const deletContactRecord = async (id) => {
+    const username = localStorage.getItem("username");
+    const response = await DashboardRepo.deleteContactRecord(id, username);
+    alert(response.data.msg);
+    getAllContacts();
+  };
+
+  useEffect(() => {
+    getAllContacts();
+  }, []);
 
   return (
     <div className="services-container">
@@ -108,22 +152,48 @@ const Contacts = () => {
           </button>
         </div>
       </form>
-      <List sx={{ width: "80%", bgcolor: "background.paper" }}>
-        <ListItem>
-          <ListItemAvatar>
-            <Avatar>
-              <i className="fas fa-briefcase" style={{ color: "black" }}></i>
-            </Avatar>
-          </ListItemAvatar>
-          <ListItemText primary="Photos" secondary="Jan 9, 2014" />
-          <ListItemButton style={{ width: 0, padding: 0 }}>
-            <i className="fas fa-edit fa-xl" title="Edit"></i>
-          </ListItemButton>
-          <ListItemButton style={{ width: 0, padding: 0, color: "red" }}>
-            <i class="fas fa-trash-alt fa-xl" title="Delete"></i>
-          </ListItemButton>
-        </ListItem>
-      </List>
+      {leads.map((e) => (
+        <List
+          key={e._id}
+          sx={{
+            width: "80%",
+            bgcolor: "background.paper",
+          }}
+        >
+          <ListItem>
+            <ListItemAvatar>
+              <Avatar>
+                <i className="fas fa-briefcase" style={{ color: "black" }}></i>
+              </Avatar>
+            </ListItemAvatar>
+            <ListItemText
+              primary={e.title}
+              secondary={e.description}
+              style={{ width: "40vw" }}
+            />
+            <ListItemButton
+              style={{ width: 0, padding: 0 }}
+              onClick={() => {
+                setUpdateId(e._id);
+                setFormValues({ ...e });
+              }}
+            >
+              <i className="fas fa-edit fa-xl" title="Edit"></i>
+            </ListItemButton>
+            <ListItemButton style={{ width: "5vw", padding: 0 }}>
+              <h4>Mobile: {e.mobileNumber}</h4>
+            </ListItemButton>
+            <ListItemButton
+              style={{ width: 0, padding: 0, color: "red" }}
+              onClick={() => {
+                deletContactRecord(e._id);
+              }}
+            >
+              <i class="fas fa-trash-alt fa-xl" title="Delete"></i>
+            </ListItemButton>
+          </ListItem>
+        </List>
+      ))}
     </div>
   );
 };

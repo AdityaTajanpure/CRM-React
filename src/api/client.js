@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const axiosClient = axios.create({
-  baseURL: "https://protected-river-14538.herokuapp.com/",
+  baseURL: "http://localhost:3200",
   headers: {
     "Content-Type": "application/json",
     "Access-Control-Allow-Origin": "*",

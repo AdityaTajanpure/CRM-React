@@ -1,11 +1,13 @@
 import React from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
 import ListItemText from "@mui/material/ListItemText";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemAvatar from "@mui/material/ListItemAvatar";
 import Avatar from "@mui/material/Avatar";
+import DashboardRepo from "../../../api/dashboard_repo";
+
 const Services = () => {
   const initialValues = {
     title: "",
@@ -14,18 +16,71 @@ const Services = () => {
   };
   const [formValues, setFormValues] = useState(initialValues);
   const [formErrors, setFormErrors] = useState({});
-  const [isSubmit, setIsSubmit] = useState(false);
+  const [services, setServices] = useState([]);
+  const [updateId, setUpdateId] = useState(null);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormValues({ ...formValues, [name]: value });
   };
 
+  const getAllServices = async () => {
+    const username = localStorage.getItem("username");
+    const response = await DashboardRepo.getServiceRequests(username);
+    console.log(response);
+    if (response.data) {
+      setServices(response.data.data.reverse());
+      setFormValues(initialValues);
+    }
+  };
+
+  const addServiceRequest = async () => {
+    const username = localStorage.getItem("username");
+    const response = await DashboardRepo.addServiceRequest(
+      username,
+      formValues.title,
+      formValues.description,
+      formValues.status
+    );
+    alert(response.data.msg);
+    getAllServices();
+  };
+
+  const updateServiceRequest = async (id) => {
+    const username = localStorage.getItem("username");
+    const response = await DashboardRepo.updateServiceRequest(
+      id,
+      username,
+      formValues.title,
+      formValues.description,
+      formValues.status
+    );
+    setUpdateId(null);
+    alert(response.data.msg);
+    getAllServices();
+  };
+
+  const deleteServiceRequest = async (id) => {
+    const username = localStorage.getItem("username");
+    const response = await DashboardRepo.deleteServiceRequest(id, username);
+    alert(response.data.msg);
+    getAllServices();
+  };
+
+  useEffect(() => {
+    getAllServices();
+  }, []);
+
   const handleSubmit = (e) => {
     e.preventDefault();
     setFormErrors(validate(formValues));
-
-    setIsSubmit(true);
+    if (Object.keys(formErrors).length === 0) {
+      if (updateId !== null) {
+        updateServiceRequest(updateId);
+      } else {
+        addServiceRequest();
+      }
+    }
   };
 
   const validate = (values) => {
@@ -44,12 +99,6 @@ const Services = () => {
 
   return (
     <div className="services-container">
-      {/* {Object.keys(formErrors).length === 0 && isSubmit ? (
-        <div className="ui message success">Data added successfully</div>
-      ) : (
-        <></>
-      )} */}
-
       <form onSubmit={handleSubmit}>
         <h1>Add Service Request</h1>
         <div className="ui divider"></div>
@@ -95,22 +144,48 @@ const Services = () => {
           </button>
         </div>
       </form>
-      <List sx={{ width: "80%", bgcolor: "background.paper" }}>
-        <ListItem>
-          <ListItemAvatar>
-            <Avatar>
-              <i className="fas fa-briefcase" style={{ color: "black" }}></i>
-            </Avatar>
-          </ListItemAvatar>
-          <ListItemText primary="Photos" secondary="Jan 9, 2014" />
-          <ListItemButton style={{ width: 0, padding: 0 }}>
-            <i className="fas fa-edit fa-xl" title="Edit"></i>
-          </ListItemButton>
-          <ListItemButton style={{ width: 0, padding: 0, color: "red" }}>
-            <i class="fas fa-trash-alt fa-xl" title="Delete"></i>
-          </ListItemButton>
-        </ListItem>
-      </List>
+      {services.map((e) => (
+        <List
+          key={e._id}
+          sx={{
+            width: "80%",
+            bgcolor: "background.paper",
+          }}
+        >
+          <ListItem>
+            <ListItemAvatar>
+              <Avatar>
+                <i className="fas fa-briefcase" style={{ color: "black" }}></i>
+              </Avatar>
+            </ListItemAvatar>
+            <ListItemText
+              primary={e.title}
+              secondary={e.description}
+              style={{ width: "40vw" }}
+            />
+            <ListItemButton
+              style={{ width: 0, padding: 0 }}
+              onClick={() => {
+                setUpdateId(e._id);
+                setFormValues({ ...e });
+              }}
+            >
+              <i className="fas fa-edit fa-xl" title="Edit"></i>
+            </ListItemButton>
+            <ListItemButton style={{ width: "5vw", padding: 0 }}>
+              <h4>Status: {e.status}</h4>
+            </ListItemButton>
+            <ListItemButton
+              style={{ width: 0, padding: 0, color: "red" }}
+              onClick={() => {
+                deleteServiceRequest(e._id);
+              }}
+            >
+              <i class="fas fa-trash-alt fa-xl" title="Delete"></i>
+            </ListItemButton>
+          </ListItem>
+        </List>
+      ))}
     </div>
   );
 };

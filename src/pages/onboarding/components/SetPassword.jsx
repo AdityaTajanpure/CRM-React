@@ -2,17 +2,14 @@ import React from "react";
 import "../login.css";
 import { useState } from "react";
 import UserRepo from "../../../api/connection";
-import { useNavigate } from "react-router-dom";
 
 const SetPassword = () => {
-  const navigate = useNavigate();
   const initialValues = {
     password: "",
     password2: "",
   };
   const [formValues, setFormValues] = useState(initialValues);
   const [formErrors, setFormErrors] = useState({});
-  const [isSubmit, setIsSubmit] = useState(false);
   const [response, gotResponse] = useState({});
 
   const handleChange = (e) => {
@@ -40,7 +37,6 @@ const SetPassword = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     setFormErrors(validate(formValues));
-    setIsSubmit(true);
     if (Object.keys(formErrors).length === 0) {
       setPassword(formValues.password);
     }

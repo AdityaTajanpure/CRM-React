@@ -2,8 +2,8 @@ body {
   /* background-image: url("../../../public/background.jpeg"); */
   background-image: linear-gradient(
     to top,
-    rgba(255, 246, 183, 0.5),
-    rgba(245, 65, 108, 1)
+    rgba(30, 59, 122, 0.5),
+    rgba(1, 43, 115, 1)
   );
   background-repeat: no-repeat;
   background-size: cover;

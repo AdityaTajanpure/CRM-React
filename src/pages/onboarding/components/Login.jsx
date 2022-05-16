@@ -13,7 +13,6 @@ const Login = () => {
   };
   const [formValues, setFormValues] = useState(initialValues);
   const [formErrors, setFormErrors] = useState({});
-  const [isSubmit, setIsSubmit] = useState(false);
   const [response, gotResponse] = useState({});
 
   const loginUser = async () => {
@@ -35,7 +34,6 @@ const Login = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     setFormErrors(validate(formValues));
-    setIsSubmit(true);
     if (Object.keys(formErrors).length === 0) {
       loginUser();
     }

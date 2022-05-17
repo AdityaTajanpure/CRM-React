@@ -20,6 +20,11 @@ function App() {
         <Route path="/signup" element={<SignUp />} />
         <Route path="/updatePassword/:token" element={<SetPassword />} />
         <Route path="/loading" element={<Loading />} />
+        <Route
+          path="*"
+          exact={true}
+          element={localStorage.getItem("token") ? <Dashboard /> : <Login />}
+        />
       </Routes>
     </BrowserRouter>
   );

@@ -47,7 +47,7 @@ const Login = () => {
     }
     if (!values.username) {
       errors.username = "Email is required!";
-    } else if (!regex.test(values.email)) {
+    } else if (!regex.test(values.username)) {
       errors.username = "This is not a valid email format!";
     }
     if (!values.password) {

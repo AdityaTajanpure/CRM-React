@@ -1,4 +1,4 @@
-⚠️ Remaining Modules -> API Integration for Dashboard, Adding some security checks, Forgot password flow only works until sending email latter part is pending and will be updated by today (May 15 22) ⚠️
+Deployed URL: https://crm-app-aditya.netlify.app/ [https://badgen.net/badge/Build/Live/green?icon=github]
 
 # Getting Started with Create React App
 

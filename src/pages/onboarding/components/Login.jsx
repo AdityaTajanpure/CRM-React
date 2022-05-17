@@ -18,6 +18,7 @@ const Login = () => {
   const loginUser = async () => {
     let res = await UserRepo.loginUser(formValues.email, formValues.password);
     gotResponse(res);
+    console.log(res);
     if (res.data.token) {
       localStorage.removeItem("token");
       localStorage.removeItem("username");
@@ -63,7 +64,7 @@ const Login = () => {
 
   return (
     <div className="container">
-      {response.data ? (
+      {response && response.data ? (
         <div
           className={`ui message ${
             response.data.status ? "success" : "danger"

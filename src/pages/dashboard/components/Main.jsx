@@ -21,6 +21,13 @@ const Main = () => {
     }
   };
 
+  const deleteExisitingUser = async (id) => {
+    const username = localStorage.getItem("username");
+    const response = await UserRepo.deleteExisitingUser(username, id);
+    alert(response.data.msg);
+    getAnalytics();
+  };
+
   useEffect(() => {
     getAnalytics();
   }, []);
@@ -95,6 +102,7 @@ const Main = () => {
                 style={{ width: 0, padding: 0, color: "red" }}
                 onClick={() => {
                   // deleteServiceRequest(e._id);
+                  deleteExisitingUser(e._id);
                 }}
               >
                 <i class="fas fa-trash-alt fa-xl" title="Delete"></i>

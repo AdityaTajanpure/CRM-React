@@ -35,6 +35,7 @@ axiosClient.interceptors.response.use(
       }
       return err.response.data.error;
     }
+    return err.response;
   }
 );
 

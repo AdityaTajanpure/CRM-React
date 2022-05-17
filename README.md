@@ -1,6 +1,6 @@
 Deployed URL: https://crm-app-aditya.netlify.app/
 
-![Deployment Status](https://badgen.net/badge/Build/Live/green?icon=github)    ![Build Using: React](https://badgen.net/badge/Build%20Using/React/blue?icon=github)    ![Deployed on Netlife](https://badgen.net/badge/Deployed%20On/Netlify/purple?icon=github)
+![Deployment Status](https://badgen.net/badge/Build/Live/green?icon=github)    ![Built Using: React](https://badgen.net/badge/Build%20Using/React/blue?icon=github)    ![Deployed on Netlife](https://badgen.net/badge/Deployed%20On/Netlify/purple?icon=github)
 
 
 # Getting Started with Create React App

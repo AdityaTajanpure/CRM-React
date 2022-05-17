@@ -1,4 +1,5 @@
-Deployed URL: https://crm-app-aditya.netlify.app/ 
+Deployed URL: https://crm-app-aditya.netlify.app/
+
 ![Deployment Status](https://badgen.net/badge/Build/Live/green?icon=github)
 
 # Getting Started with Create React App

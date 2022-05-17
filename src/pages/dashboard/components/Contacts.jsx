@@ -180,7 +180,15 @@ const Contacts = () => {
             >
               <i className="fas fa-edit fa-xl" title="Edit"></i>
             </ListItemButton>
-            <ListItemButton style={{ width: "5vw", padding: 0 }}>
+            <ListItemButton
+              style={{
+                width: "10vw",
+                padding: 0,
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+              }}
+            >
               <h4>Mobile: {e.mobileNumber}</h4>
             </ListItemButton>
             <ListItemButton

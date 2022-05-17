@@ -19,8 +19,12 @@ const Login = () => {
     let res = await UserRepo.loginUser(formValues.email, formValues.password);
     gotResponse(res);
     if (res.data.token) {
+      localStorage.removeItem("token");
+      localStorage.removeItem("username");
+      localStorage.removeItem("type");
       localStorage.setItem("token", res.data.token);
       localStorage.setItem("username", res.data.data.username);
+      localStorage.setItem("type", res.data.data.type);
       navigate("/");
       window.location.reload();
     }
@@ -34,7 +38,7 @@ const Login = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     setFormErrors(validate(formValues));
-    if (Object.keys(formErrors).length === 0) {
+    if (Object.keys(validate(formValues)).length === 0) {
       loginUser();
     }
   };

@@ -23,7 +23,7 @@ const ForgotPassword = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     setFormErrors(validate(formValues));
-    if (Object.keys(formErrors).length === 0) {
+    if (Object.keys(validate(formValues)).length === 0) {
       forgotPassword();
     }
   };

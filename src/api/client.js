@@ -24,7 +24,18 @@ axiosClient.interceptors.response.use(
       return response;
     }
   },
-  (err) => err.response
+  (err) => {
+    if (err.response.data && err.response.data.error) {
+      if (err.response.data.error === "jwt expired") {
+        alert("Session Expired");
+        window.location.replace("/login");
+        localStorage.removeItem("token");
+        localStorage.removeItem("username");
+        localStorage.removeItem("type");
+      }
+      return err.response.data.error;
+    }
+  }
 );
 
 export default axiosClient;

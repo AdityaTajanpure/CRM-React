@@ -11,7 +11,7 @@ import DashboardRepo from "../../../api/dashboard_repo";
 const Services = () => {
   const initialValues = {
     title: "",
-    status: "",
+    status: "Select Service Status",
     description: "",
   };
   const [formValues, setFormValues] = useState(initialValues);
@@ -74,7 +74,7 @@ const Services = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     setFormErrors(validate(formValues));
-    if (Object.keys(formErrors).length === 0) {
+    if (Object.keys(validate(formValues)).length === 0) {
       if (updateId !== null) {
         updateServiceRequest(updateId);
       } else {
@@ -86,9 +86,11 @@ const Services = () => {
   const validate = (values) => {
     const errors = {};
     if (!values.title) {
-      errors.email = "Title is required!";
+      errors.title = "Title is required!";
     }
     if (!values.status) {
+      errors.status = "Status is required";
+    } else if (values.status === "Select Service Status") {
       errors.status = "Status is required";
     }
     if (!values.description) {
@@ -114,16 +116,24 @@ const Services = () => {
             />
           </div>
           <p>{formErrors.title}</p>
-          <div className="field">
-            <label>Status</label>
-            <input
-              type="text"
-              name="status"
-              placeholder="Status"
-              value={formValues.status}
-              onChange={handleChange}
-            />
-          </div>
+          <select
+            className="form-select form-select-sm "
+            aria-label=".form-select-sm example"
+            onChange={(e) =>
+              handleChange({
+                target: { name: "status", value: e.target.value },
+              })
+            }
+            value={formValues.status}
+          >
+            <option>Select Service Status</option>
+            <option value="Created">Created</option>
+            <option value="Open">Open</option>
+            <option value="In Process">In Process</option>
+            <option value="Released">Released</option>
+            <option value="Canceled">Canceled</option>
+            <option value="Completed">Completed</option>
+          </select>
           <p>{formErrors.status}</p>
           <div className="field">
             <label>Description</label>
@@ -172,7 +182,15 @@ const Services = () => {
             >
               <i className="fas fa-edit fa-xl" title="Edit"></i>
             </ListItemButton>
-            <ListItemButton style={{ width: "5vw", padding: 0 }}>
+            <ListItemButton
+              style={{
+                width: "10vw",
+                padding: 0,
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+              }}
+            >
               <h4>Status: {e.status}</h4>
             </ListItemButton>
             <ListItemButton

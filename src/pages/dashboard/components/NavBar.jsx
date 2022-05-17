@@ -6,8 +6,8 @@ const NavBar = ({ currentIndex, setIndex }) => {
       <div className="user-info">
         <i className="fa-regular fa-user fa-xl"></i>
         <div className="user-details">
-          <h3>Aditya Tajanpure</h3>
-          <p className="userrole">Super Admin</p>
+          <h3>{localStorage.getItem("username")}</h3>
+          <p className="userrole">{localStorage.getItem("type")}</p>
         </div>
       </div>
       <div className="main-content">

@@ -45,7 +45,7 @@ nav {
   justify-content: space-around;
   align-items: center;
   padding-left: 10px;
-  padding-top: 40px;
+  padding-top: 10px;
 }
 
 .content-item {
@@ -68,10 +68,10 @@ nav {
 .username,
 .userrole,
 h3 {
-  margin-top: 0 !important;
-  margin-bottom: 0 !important;
-  padding-top: 0 !important;
-  padding-bottom: 0 !important;
+  margin-top: 0;
+  margin-bottom: 0;
+  padding-top: 0;
+  padding-bottom: 0;
 }
 
 .dashboard-body {
@@ -99,4 +99,26 @@ h3 {
   padding: 20px;
   border-radius: 5px;
   background: #fff;
+}
+
+.card {
+  height: 20vh;
+  width: 20vw;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  transition: 0.3s;
+  margin-top: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+/* On mouse-over, add a deeper shadow */
+.card:hover {
+  box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+}
+
+/* Add some padding inside the card container */
+.card-container {
+  padding: 2px 16px;
 }

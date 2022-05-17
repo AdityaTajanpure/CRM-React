@@ -15,22 +15,6 @@ const Dashboard = () => {
   useEffect(() => {
     if (!localStorage.getItem("token")) {
       navigate("/login");
-    } else {
-      var token = localStorage.getItem("token");
-      var base64Url = token.split(".")[1];
-      var base64 = base64Url.replace(/-/g, "+").replace(/_/g, "/");
-      var jsonPayload = decodeURIComponent(
-        atob(base64)
-          .split("")
-          .map(function (c) {
-            return "%" + ("00" + c.charCodeAt(0).toString(16)).slice(-2);
-          })
-          .join("")
-      );
-      if (Date.now() >= jsonPayload.token * 1000) {
-        localStorage.removeItem("token");
-        navigate("/");
-      }
     }
   });
 
@@ -45,10 +29,13 @@ const Dashboard = () => {
       case 3:
         return <Contacts />;
       case 4:
-        localStorage.removeItem("token");
-        localStorage.removeItem("username");
-        navigate("/login");
-        window.location.reload();
+        if (window.confirm("Are you sure you want to logout?")) {
+          localStorage.removeItem("token");
+          localStorage.removeItem("username");
+          localStorage.removeItem("type");
+          navigate("/login");
+          window.location.reload();
+        }
         return <></>;
       default:
         return <Main />;

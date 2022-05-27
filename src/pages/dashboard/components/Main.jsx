@@ -79,15 +79,6 @@ const Main = () => {
                 style={{ width: "40vw" }}
               />
               <ListItemButton
-                style={{ width: 0, padding: 0 }}
-                onClick={() => {
-                  // setUpdateId(e._id);
-                  // setFormValues({ ...e });
-                }}
-              >
-                <i className="fas fa-edit fa-xl" title="Edit"></i>
-              </ListItemButton>
-              <ListItemButton
                 style={{
                   width: "10vw",
                   padding: 0,

@@ -103,8 +103,9 @@ const Login = () => {
           </div>
           <p>{formErrors.password}</p>
           <button className="fluid ui button blue">Submit</button>
-          <p>
+          <p style={{ display: "flex", justifyContent: "space-between" }}>
             <Link to="/forgotPassword">Forgot Password?</Link>
+            <Link to="/signup">Create a new account</Link>
           </p>
         </div>
       </form>

@@ -108,6 +108,11 @@ const Login = () => {
             <Link to="/signup">Create a new account</Link>
           </p>
         </div>
+        <h5>
+          Demo Login: <br />
+          Email: admin@gmail.com <br />
+          Password: 123123
+        </h5>
       </form>
     </div>
   );

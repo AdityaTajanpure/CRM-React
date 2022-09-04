@@ -154,6 +154,9 @@ const Services = () => {
           </button>
         </div>
       </form>
+      {services.length === 0 && (
+        <div className="container ui message danger">No Records Found</div>
+      )}
       {services.map((e) => (
         <List
           key={e._id}

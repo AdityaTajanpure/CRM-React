@@ -13,9 +13,12 @@ const Main = () => {
   const getAnalytics = async () => {
     const username = localStorage.getItem("username");
     const response = await UserRepo.getAnalytics(username);
+    //Removing current user from list
     if (response.data && response.data.status) {
+      // response.data.data.users = response.data.data.users.filter(
+      //   (user) => user.username !== localStorage.getItem("username")
+      // );
       setAnalytics(response.data.data);
-      console.log(response.data.data.users);
     } else {
       alert(response.data.msg);
     }
@@ -23,9 +26,12 @@ const Main = () => {
 
   const deleteExisitingUser = async (id) => {
     const username = localStorage.getItem("username");
-    const response = await UserRepo.deleteExisitingUser(username, id);
-    alert(response.data.msg);
-    getAnalytics();
+    var result = window.confirm("Are you sure you want to delete this user?");
+    if (result) {
+      const response = await UserRepo.deleteExisitingUser(username, id);
+      alert(response.data.msg);
+      getAnalytics();
+    }
   };
 
   useEffect(() => {
@@ -36,8 +42,8 @@ const Main = () => {
     <div className="services-container">
       <div className="user-info">
         {["Total Leads", "Total Service Records", "Total Contacts"].map((e) => (
-          <div class="card">
-            <div class="card-container">
+          <div className="card">
+            <div className="card-container">
               <h3>
                 <b>{e}</b>
               </h3>
@@ -89,15 +95,17 @@ const Main = () => {
               >
                 <h4>Role: {e.type}</h4>
               </ListItemButton>
-              <ListItemButton
-                style={{ width: 0, padding: 0, color: "red" }}
-                onClick={() => {
-                  // deleteServiceRequest(e._id);
-                  deleteExisitingUser(e._id);
-                }}
-              >
-                <i class="fas fa-trash-alt fa-xl" title="Delete"></i>
-              </ListItemButton>
+              {e.type !== "Admin" && (
+                <ListItemButton
+                  style={{ width: 0, padding: 0, color: "red" }}
+                  onClick={() => {
+                    deleteExisitingUser(e._id);
+                  }}
+                >
+                  <i className="fas fa-trash-alt fa-xl" title="Delete"></i>
+                </ListItemButton>
+              )}
+              {e.type === "Admin" && <p style={{ color: "white" }}>spacing</p>}
             </ListItem>
           </List>
         ))

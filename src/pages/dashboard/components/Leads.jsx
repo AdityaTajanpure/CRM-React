@@ -164,6 +164,9 @@ const Leads = () => {
           </button>
         </div>
       </form>
+      {leads.length === 0 && (
+        <div className="container ui message danger">No Records Found</div>
+      )}
       {leads.map((e) => (
         <List
           key={e._id}

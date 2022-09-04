@@ -6,6 +6,7 @@ import ForgotPassword from "./pages/onboarding/components/ForgotPassword";
 import SignUp from "./pages/onboarding/components/SignUp";
 import SetPassword from "./pages/onboarding/components/SetPassword";
 import Dashboard from "./pages/dashboard/Dashboard";
+import VerifyEmail from "./pages/onboarding/components/VerifyEmail";
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
         <Route path="/forgotPassword" element={<ForgotPassword />} />
         <Route path="/signup" element={<SignUp />} />
         <Route path="/updatePassword/:token" element={<SetPassword />} />
+        <Route path="/verifyEmail/:token" element={<VerifyEmail />} />
         <Route path="/loading" element={<Loading />} />
         <Route
           path="*"

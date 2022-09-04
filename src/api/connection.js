@@ -14,12 +14,13 @@ const UserRepo = {
     });
   },
 
-  signUp: async ({ username, firstname, lastname, password }) => {
+  signUp: async ({ username, firstname, lastname, password, type }) => {
     return await axiosClient.post("onboarding/signUp", {
       username,
       firstname,
       lastname,
       password,
+      type,
     });
   },
 
@@ -28,6 +29,13 @@ const UserRepo = {
       token,
       username,
       password,
+    });
+  },
+
+  verifyEmail: async (token, username) => {
+    return await axiosClient.post("onboarding/verifyEmail", {
+      token,
+      username,
     });
   },
   updateExisitingUserRole: async (username, id, title) => {

@@ -12,6 +12,7 @@ const Login = () => {
     lastname: "",
     username: "",
     password: "",
+    type: "",
   };
   const [formValues, setFormValues] = useState(initialValues);
   const [formErrors, setFormErrors] = useState({});
@@ -56,6 +57,9 @@ const Login = () => {
       errors.password = "Password must be more than 4 characters";
     } else if (values.password.length > 16) {
       errors.password = "Password cannot exceed more than 16 characters";
+    }
+    if (!values.type) {
+      errors.type = "User type is required";
     }
     return errors;
   };
@@ -121,6 +125,21 @@ const Login = () => {
             />
           </div>
           <p>{formErrors.password}</p>
+          <div className="field">
+            <label>User Type</label>
+            <select
+              name="type"
+              id="userType"
+              value={formValues.type}
+              onChange={handleChange}
+            >
+              <option value="">Select</option>
+              <option value="Admin">Admin</option>
+              <option value="Manager">Manager</option>
+              <option value="Employee">Employee</option>
+            </select>
+          </div>
+          <p>{formErrors.type}</p>
           <button className="fluid ui button blue">Submit</button>
           <p></p>
           <span> Already have an account? </span>

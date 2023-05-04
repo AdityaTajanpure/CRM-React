@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const axiosClient = axios.create({
-  baseURL: "https://web-production-a192.up.railway.app/",
+  baseURL: "https://web-production-53d4.up.railway.app/",
   headers: {
     "Content-Type": "application/json",
     "Access-Control-Allow-Origin": "*",

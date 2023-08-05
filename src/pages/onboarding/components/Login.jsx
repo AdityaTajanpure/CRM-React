@@ -78,9 +78,9 @@ const Login = () => {
 
       <form onSubmit={handleSubmit}>
         <h1>Login Form</h1>
-        {/* <h5>
+        <h5>
           Site is not working due to <a target="_blank" href="https://techcrunch.com/2022/08/25/heroku-announces-plans-to-eliminate-free-plans-blaming-fraud-and-abuse/">this</a>.
-        </h5> */}
+        </h5>
         <div className="ui divider"></div>
         <div className="ui form">
           <div className="field">
